@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>User Page</title>
-	</head>
-	<body>
-		<h1>User Name: {{.UserName}}</h1>
-		<h1>Email: {{.Email}}</h1>
-	</body>
-</html>
+<div>
+	<h1>User Info</h1>
+	<p>User Name: {{.UserName}}</p>
+	<p>Email: {{.Email}}</p>
+</div>
+<div>
+	<h1>Tests</h1>
+</div>

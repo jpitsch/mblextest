@@ -14,10 +14,10 @@ var (
 )
 
 type User struct {
-	Id 			int 		`bson:"id"`
+	Id 			int 		`bson:"_id"`
 	FirstName 	string		`bson:"firstname"` 
 	LastName 	string		`bson:"lastname"`
-	UserName	string 		`bson:"name"`
+	UserName	string 		`bson:"username"`
 	Password	string 		`bson:"password"`
 	Created		time.Time   `bson:"created"`
 	Updated		time.Time   `bson:"updated"`
@@ -30,11 +30,26 @@ type UserProps struct {
 }
 
 type Test struct {
-	Id		int
+	Id			int 		`bson:"_id"`
+	Name 		string		`bson:"name"`
+	Questions	[]Question
 }
 
 type Question struct {
-	Id		int
+	Id			int 		`bson:"_id"`
+	Selected	int 		`bson:"selected"`
+	Question	string 		`bson:"question"`
+	Answers		[]Answer
+
+	Test 		*Test
+}
+
+type Answer struct {
+	Id 			int 		`bson:"_id"`
+	Position	int 		`bson:"position"`
+	Text		string 		`bson:"text"`
+
+	Questions 	*Question 
 }
 
 
@@ -55,13 +70,13 @@ func LoadUser(user string) User {
 	session := getSession()
 	defer session.Close()
 
-	users := session.DB("pitsch_test").C("usercollection")
+	users := session.DB("mtest_dev").C("usercollection")
 
 	userresult := User{}
 	err := users.Find(bson.M{"username": user}).One(&userresult)
 	if err != nil {
 		fmt.Println("No such user: ")
 	}
-
+	fmt.Println("User found.")
 	return userresult
 }
