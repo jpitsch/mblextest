@@ -5,4 +5,10 @@
 </div>
 <div>
 	<h1>Tests</h1>
+	<ul>
+		{{range $key, $val := .s}}
+    	<li>{{$key}}</li>
+    	<li>{{$val}}</li>
+    	{{end}}
+    </ul>
 </div>

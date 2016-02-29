@@ -18,9 +18,12 @@ func (this *UserController) Get() {
 	this.TplName = "user.tpl"
 	//flash := beego.ReadFromRequest(&this.Controller)
 
-	this.Data["UserName"]=this.GetSession("username")
-	this.Data["Email"]=this.GetSession("email")
-	
+	this.Data["UserName"] = this.GetSession("username")
+	this.Data["Email"] = this.GetSession("email")
+
+	ss := []string{"a", "b", "c"}
+	this.Data["s"] = ss
+
 }
 
 func (this *UserController) Post() {
@@ -42,7 +45,7 @@ func (this *UserController) Post() {
 	//	fmt.Println("No valid username")
 	//	this.Redirect("/", 302)
 	//}
-	
+
 	this.SetSession("username", u.UserName)
 	this.SetSession("email", u.Email)
 
