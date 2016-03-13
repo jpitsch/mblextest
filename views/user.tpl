@@ -5,7 +5,7 @@
 </div>
 <div>
 	<h1>Tests</h1>
-	<ul>
+	<ul style="list-style-type:none">
 		{{range $key, $val := .s}}
     	<li>{{$key}}</li>
     	<li>{{$val}}</li>

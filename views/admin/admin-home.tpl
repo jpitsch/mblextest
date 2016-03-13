@@ -1,6 +1,6 @@
 <div>
 	<ul style="list-style-type:none">
-		<a id="useradmin" href="/useradmin">Create/Edit Users</a>
-		<a id="testadmin" href="/testadmin">Create/Edit Tests</a>
+		<li><a id="useradmin" href="/admin/useradmin">Create/Edit Users</a></li>
+		<li><a id="testadmin" href="/admin/testadmin">Create/Edit Tests</a></li>
 	</ul>
 </div>

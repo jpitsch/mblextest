@@ -1,9 +1,7 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/jpitsch/mblextest/models"
 )
 
 type TestController struct {
