@@ -1,14 +1,15 @@
+<p>Test {{.TestName}}</p>
 <div>
 	<h4>{{.flash.notice}}</h4>
 </div>
 <form id="questionForm" action="" method="POST">
-	<div><label>Question Text:</label><input name="question" type="text" required /></div>
-	<div><label>Answer 1:</label><input name="answer1" type="text" required /></div>
-	<div><label>Answer 2:</label><input name="answer2" type="text" required /></div>
-	<div><label>Answer 3:</label><input name="answer3" type="text" required /></div>
-	<div><label>Answer 4:</label><input name="answer4" type="text" required /></div>
+	<div><label>Question Text:</label><textarea name="question" type="text" required ></textarea></div>
+	<div><label>Answer 1:</label><textarea name="answer1" type="text" required ></textarea></div>
+	<div><label>Answer 2:</label><textarea name="answer2" type="text" required ></textarea></div>
+	<div><label>Answer 3:</label><textarea name="answer3" type="text" required ></textarea></div>
+	<div><label>Answer 4:</label><textarea name="answer4" type="text" required ></textarea></div>
 	<div>
-		<label>Correct Answer:</label>
+		<label>Correct#:</label>
 		<select>
 			<option value=""></option>
 			<option value="1">1</option>
@@ -18,9 +19,9 @@
 		</select>
 	</div>
 	<div>
-		<input type="button" value="Next" name"next" onclick="nextQuestion()" />
-		<input type="button" value="Next" name"next" onclick="previousQuestion()" />
-		<input type="button" value="Next" name"next" onclick="finishedTest()" />
+		<input type="button" value="Previous" name="previous" onclick="previousQuestion()" />
+		<input type="button" value="Next" name="next" onclick="nextQuestion()" />
+		<input type="button" value="Finish" name="finished" onclick="finishedTest()" />
 	</div>
 </form>
 <script>
