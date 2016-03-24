@@ -38,9 +38,10 @@ type Test struct {
 
 type Question struct {
 	Id             int    `bson:"_id"`
-	Selected       int    `bson:"selected"`
-	CorrectAnswwer int    `bson:"correctAnswer"`
+	Selected       string `bson:"selected"`
+	CorrectAnswwer string `bson:"correctAnswer"`
 	Question       string `bson:"question"`
+	Number		   int 	  `bson:"number"`
 	Answers        []Answer
 
 	Test *Test
@@ -88,7 +89,7 @@ func SaveTest(t Test) {
 	defer session.Close()
 
 	c := session.DB("mtest_dev").C("testcollection")
-	err := c.Insert(&Test{t.Name, t.TestType})
+	err := c.Insert(&Test{Name: t.Name, TestType: t.TestType})
 
 	if err != nil {
 		fmt.Println("Error while trying to save to Mongo.")
@@ -108,4 +109,8 @@ func LoadTest(name string) Test {
 	}
 
 	return testresult
+}
+
+func NewTest() Test {
+	return Test{}
 }

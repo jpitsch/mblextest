@@ -9,8 +9,8 @@
 	<div><label>Answer 3:</label><textarea name="answer3" type="text" required ></textarea></div>
 	<div><label>Answer 4:</label><textarea name="answer4" type="text" required ></textarea></div>
 	<div>
-		<label>Correct#:</label>
-		<select>
+		<label>Correct Answer #:</label>
+		<select name="correctAnswer">
 			<option value=""></option>
 			<option value="1">1</option>
 			<option value="2">2</option>

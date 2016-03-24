@@ -38,9 +38,9 @@ func (this *AdminController) GetCreateTest() {
 func (this *AdminController) GetStartAddingQuestions() {
 	this.TplName = "admin/create-question.tpl"
 
-	test := Test{}
+	test := models.Test{}
 	test.Name = this.GetString("testName")
-	test.Type = this.GetString("testType")
+	test.TestType = this.GetString("testType")
 
 	models.SaveTest(test)
 
@@ -49,18 +49,24 @@ func (this *AdminController) GetStartAddingQuestions() {
 
 func (this *AdminController) AddNextQuestion() {
 	this.TplName = "admin/create-question.tpl"
-	testname := this.GetSession("testname")
 
-	answers := make([]Answer, 4)
-	answers[0] = Answer{Text: this.GetString("answer1"), Position: 0}
-	answers[1] = Answer{Text: this.GetString("answer2"), Position: 1}
-	answers[2] = Answer{Text: this.GetString("answer3"), Position: 2}
-	answers[3] = Answer{Text: this.GetString("answer4"), Position: 3}
-
-	question := Question{Question: this.GetString("question"), Answers: answers}
-
+	testname := this.GetSession("testname").(string)
 	test := models.LoadTest(testname)
 
+	answers := make([]models.Answer, 4)
+	answers[0] = models.Answer{Text: this.GetString("answer1"), Position: 0}
+	answers[1] = models.Answer{Text: this.GetString("answer2"), Position: 1}
+	answers[2] = models.Answer{Text: this.GetString("answer3"), Position: 2}
+	answers[3] = models.Answer{Text: this.GetString("answer4"), Position: 3}
+
+	question := models.Question{Question: this.GetString("question"), 
+								Answers: answers, 
+								CorrectAnswwer: this.GetString("correctAnswer"),
+								Number: len(test.Questions)+1}
+
+	test.Questions = append(test.Questions, question)
+	
+	models.SaveTest(test)
 }
 
 func (this *AdminController) GetEditTest() {
