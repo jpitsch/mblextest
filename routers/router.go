@@ -17,8 +17,8 @@ func init() {
 	beego.Router("/admin/edittest", &controllers.AdminController{}, "get:GetEditTest")
 	beego.Router("/admin/viewtests", &controllers.AdminController{}, "get:GetViewTests")
 
-	beego.Router("/admin/test/startaddingquestions", &controllers.AdminController{}, "get:GetStartAddingQuestions")
-	beego.Router("/admin/test/addnextquestion", &controllers.AdminController{}, "get:AddNextQuestion")
+	beego.Router("/admin/test/startaddingquestions", &controllers.AdminController{}, "post:GetStartAddingQuestions")
+	beego.Router("/admin/test/addnextquestion", &controllers.AdminController{}, "post:AddNextQuestion")
 	beego.Router("/admin/test/previousquestion", &controllers.AdminController{}, "get:GetPreviousQuestion")
 	beego.Router("/admin/test/finalizetest", &controllers.AdminController{}, "get:FinalizeTestCreation")
 

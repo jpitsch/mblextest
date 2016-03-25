@@ -14,7 +14,6 @@ var (
 )
 
 type User struct {
-	Id        int       `bson:"_id"`
 	FirstName string    `bson:"firstname"`
 	LastName  string    `bson:"lastname"`
 	UserName  string    `bson:"username"`
@@ -22,7 +21,7 @@ type User struct {
 	Created   time.Time `bson:"created"`
 	Updated   time.Time `bson:"updated"`
 	Email     string    `bson:"email"`
-	UserProps *UserProps
+	UserProps
 }
 
 type UserProps struct {
@@ -30,29 +29,24 @@ type UserProps struct {
 }
 
 type Test struct {
-	Id        int    `bson:"_id"`
-	Name      string `bson:"name"`
-	TestType  string `bson:"test_type"`
-	Questions []Question
+	Name      string
+	TestType  string 	 	
+	Publish   bool
+	Question  []Question
 }
 
 type Question struct {
-	Id             int    `bson:"_id"`
-	Selected       string `bson:"selected"`
-	CorrectAnswwer string `bson:"correctAnswer"`
-	Question       string `bson:"question"`
-	Number		   int 	  `bson:"number"`
-	Answers        []Answer
-
-	Test *Test
+	//Id        	   bson.ObjectId	//`_id,omitempty`
+	Selected       string 			//`bson:"selected"`
+	CorrectAnswer  string 			//`bson:"correctAnswer"`
+	Question       string 			//`bson:"question"`
+	Number		   int 	  			//`bson:"number"`
+	Answer 		   []Answer
 }
 
 type Answer struct {
-	Id       int    `bson:"_id"`
-	Position int    `bson:"position"`
-	Text     string `bson:"text"`
-
-	Questions *Question
+	Position int    	//`bson:"position"`
+	Text     string 	//`bson:"text"`
 }
 
 //Only get the copy of the session for Mongo database
@@ -89,11 +83,26 @@ func SaveTest(t Test) {
 	defer session.Close()
 
 	c := session.DB("mtest_dev").C("testcollection")
-	err := c.Insert(&Test{Name: t.Name, TestType: t.TestType})
+	err := c.Insert(t)
 
 	if err != nil {
-		fmt.Println("Error while trying to save to Mongo.")
+		fmt.Println("Error while trying to save Test to Mongo: " + t.Name)
+		fmt.Println(err)
 	}
+}
+
+func SaveTestQuestion(t Test, q Question) {
+	session := getSession()
+	defer session.Close()
+
+	c := session.DB("mtest_dev").C("testcollection")
+
+	c.update({"name": t.Name}, {"$addToSet": {Question: q}})
+
+	if err != nil {
+		fmt.Println("Error while trying to add a new question to: " + t.Name)
+		fmt.Println(err)
+	}	
 }
 
 func LoadTest(name string) Test {
@@ -105,7 +114,7 @@ func LoadTest(name string) Test {
 	err := tests.Find(bson.M{"name": name}).One(&testresult)
 
 	if err != nil {
-		fmt.Println("No test by that name.")
+		fmt.Println("No test by that name " + name)
 	}
 
 	return testresult

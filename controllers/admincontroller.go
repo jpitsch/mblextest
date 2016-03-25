@@ -60,11 +60,11 @@ func (this *AdminController) AddNextQuestion() {
 	answers[3] = models.Answer{Text: this.GetString("answer4"), Position: 3}
 
 	question := models.Question{Question: this.GetString("question"), 
-								Answers: answers, 
+								Answer: answers, 
 								CorrectAnswwer: this.GetString("correctAnswer"),
-								Number: len(test.Questions)+1}
+								Number: len(test.Question)+1}
 
-	test.Questions = append(test.Questions, question)
+	test.Question = append(test.Question, question)
 	
 	models.SaveTest(test)
 }
