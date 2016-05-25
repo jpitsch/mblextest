@@ -29,6 +29,7 @@ type UserProps struct {
 }
 
 type Test struct {
+	Id        int
 	Name      string
 	TestType  string 	 	
 	Publish   bool
@@ -36,15 +37,16 @@ type Test struct {
 }
 
 type Question struct {
-	//Id        	   bson.ObjectId	//`_id,omitempty`
+	Id        	   int	
 	Selected       string 			//`bson:"selected"`
 	CorrectAnswer  string 			//`bson:"correctAnswer"`
-	Question       string 			//`bson:"question"`
+	Text       	   string 			//`bson:"text"`
 	Number		   int 	  			//`bson:"number"`
 	Answer 		   []Answer
 }
 
 type Answer struct {
+	Id		 int
 	Position int    	//`bson:"position"`
 	Text     string 	//`bson:"text"`
 }
